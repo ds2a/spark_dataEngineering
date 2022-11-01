@@ -1,0 +1,19 @@
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.functions.col
+
+object DataFrameExample {
+  def main(args: Array[String]): Unit = {
+    val Spark = SparkSession.builder().master(master = "local[*]")
+      .appName("File Format Example").getOrCreate()
+    val data = Seq(("Sai", "", "Reddy", 1997, 14, "Male", 25000),
+      ("Bal", "", "Reddy", 1992, 28, "Male", 45000),
+      ("Narsi", "", "Reddy", 1980, 23, "Male", 65000),
+      ("Kiran", "", "Reddy", 2000, 22, "Female", 640000))
+    val columns = Seq("first_name", "middle_name", "last_name", "dob_year", "dob_month", "gender", "salary")
+    import Spark.implicits._
+
+    val df = data.toDF(columns: _*).sort($"salary".desc).filter($"gender" === "Female").show()
+
+  
+  }
+}

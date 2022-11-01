@@ -1,0 +1,17 @@
+package Demo_dir
+
+import org.apache.spark.sql.{SparkSession, functions}
+import org.apache.spark.sql.functions.{to_date, year}
+
+object Ganit_interview {
+  def main(args: Array[String]): Unit = {
+    val spark = SparkSession.builder().master("local").appName("ganit").getOrCreate()
+    import spark.implicits._
+    val ReadCSV = spark.read.option("header",true).option("delimiter",",").option("inferSchema",true)
+      .csv("C:\\Users\\gsuresh\\Downloads\\spark-scala-examples-master\\src\\main\\scala\\INPUT_DATA\\Highest Holywood Grossing Movies.csv")
+      .filter($"Release Date"=!= "NA")
+    val moviesDF = ReadCSV.withColumn("year",year(to_date($"Release Date","MMMM dd,yyyy")))
+    val resultDF = moviesDF.groupBy($"Distributor",$"year")
+      .agg(functions.sum($"Sales").as("Sales"))
+    resultDF.show(false)
+    ReadCSV.printSchema()

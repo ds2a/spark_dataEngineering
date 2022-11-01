@@ -1,0 +1,6 @@
+[{"memberid":1,"phone_type":["M","F"],"phone_number":[1,4]}
+,{"memberid":1,"phone_type":["M","F"],"phone_number":[2,5]}
+,{"memberid":2,"phone_type":["F"],"phone_number":[3]}
+,{"memberid":3,"phone_type":["M","T"],"phone_number":[2,5]}
+,{"memberid":4,"phone_type":["F","T"],"phone_number":[6,7]}
+,{"memberid":5,"phone_type":["M","F","T"],"phone_number":[9,0,8]}]
